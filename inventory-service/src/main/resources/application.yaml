@@ -1,0 +1,13 @@
+server:
+  servlet:
+    context-path: '/api/v1'
+  port: 8083
+
+spring:
+  datasource:
+    url: jdbc:postgresql://${POSTGRES_HOST:localhost}:5432/inventory_db
+    username: 'postgres'
+    password: '@3563949Zx'
+  jpa:
+    hibernate:
+      ddl-auto: update

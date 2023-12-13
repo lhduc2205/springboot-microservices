@@ -1,0 +1,15 @@
+server:
+  servlet:
+    context-path: '/api/v1'
+  port: 8081
+
+spring:
+  data:
+    mongodb:
+      uri: 'mongodb://localhost:27017/product_db'
+
+springdoc:
+  swagger-ui:
+    path: '/swagger-ui.html'
+  api-docs:
+    path: '/api-docs'
