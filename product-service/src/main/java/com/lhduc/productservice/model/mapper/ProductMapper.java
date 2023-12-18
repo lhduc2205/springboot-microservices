@@ -4,7 +4,6 @@ import com.lhduc.productservice.model.dto.response.ProductDTO;
 import com.lhduc.productservice.model.entity.Product;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class ProductMapper {
     private ProductMapper() {

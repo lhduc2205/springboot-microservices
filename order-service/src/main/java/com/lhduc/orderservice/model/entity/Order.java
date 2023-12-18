@@ -15,6 +15,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -55,6 +56,7 @@ public class Order {
     @Column(name = UPDATED_AT_COLUMN_NAME)
     private Timestamp updatedAt;
 
+    @ToString.Exclude
     @OneToMany(mappedBy = ORDER_MAPPING, cascade = CascadeType.ALL)
     private List<OrderLineItem> orderLineItems;
 }

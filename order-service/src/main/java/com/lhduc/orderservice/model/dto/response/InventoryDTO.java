@@ -1,17 +1,12 @@
 package com.lhduc.orderservice.model.dto.response;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
-public class OrderLineItemDTO {
+public class InventoryDTO {
     private String skuCode;
     private Integer quantity;
+    private boolean inStock;
 }

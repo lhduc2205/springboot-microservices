@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -24,6 +25,7 @@ import static com.lhduc.orderservice.constant.DatabaseConstant.ORDER_LINE_ITEM_T
 @Builder
 public class OrderLineItem {
     public static final String SKU_CODE_COLUMN_NAME = "sku_code";
+    public static final String ORDER_ID_COLUMN_NAME = "order_id";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,5 +41,6 @@ public class OrderLineItem {
     private Integer quantity;
 
     @ManyToOne
+    @JoinColumn(name = ORDER_ID_COLUMN_NAME)
     private Order order;
 }

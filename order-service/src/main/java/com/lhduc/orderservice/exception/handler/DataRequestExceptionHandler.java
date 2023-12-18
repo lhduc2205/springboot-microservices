@@ -1,5 +1,6 @@
 package com.lhduc.orderservice.exception.handler;
 
+import com.lhduc.orderservice.exception.InsufficientInventoryException;
 import com.lhduc.orderservice.exception.NotFoundException;
 import com.lhduc.orderservice.model.dto.response.ErrorResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -13,10 +14,11 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class DataRequestExceptionHandler {
 
     /**
-     * Exception handler method to handle NotFoundException instances.
+     * Exception handler method to handle instances of {@link NotFoundException}.
+     * Logs the error message and returns a {@link ResponseEntity} with the error details.
      *
-     * @param exception The NotFoundException instance to handle.
-     * @return A ResponseEntity with an ErrorResponse containing the error message and HTTP status code.
+     * @param exception The instance of {@link NotFoundException} to handle.
+     * @return A {@link ResponseEntity} containing an {@link ErrorResponse} with the error message.
      */
     @ExceptionHandler(NotFoundException.class)
     public ResponseEntity<ErrorResponse> handleNotFoundException(NotFoundException exception) {
@@ -24,5 +26,20 @@ public class DataRequestExceptionHandler {
         ErrorResponse errorResponse = new ErrorResponse(exception.getMessage());
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
+    }
+
+    /**
+     * Exception handler method to handle instances of {@link InsufficientInventoryException}.
+     * Logs the error message and returns a {@link ResponseEntity} with the error details.
+     *
+     * @param exception The instance of {@link InsufficientInventoryException} to handle.
+     * @return A {@link ResponseEntity} containing an {@link ErrorResponse} with the error message.
+     */
+    @ExceptionHandler(InsufficientInventoryException.class)
+    public ResponseEntity<ErrorResponse> handleInsufficientInventoryException(InsufficientInventoryException exception) {
+        log.error(exception.getMessage());
+        ErrorResponse errorResponse = new ErrorResponse(exception.getMessage());
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
     }
 }

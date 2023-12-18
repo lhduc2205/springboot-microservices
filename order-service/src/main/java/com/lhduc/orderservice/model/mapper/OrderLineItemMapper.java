@@ -15,10 +15,8 @@ public class OrderLineItemMapper {
 
     public static OrderLineItem mapToEntity(OrderLineItemDTO dto) {
         return OrderLineItem.builder()
-                .id(dto.getId())
                 .skuCode(dto.getSkuCode())
                 .quantity(dto.getQuantity())
-                .price(dto.getPrice())
                 .build();
     }
 
@@ -28,10 +26,8 @@ public class OrderLineItemMapper {
 
     public static OrderLineItemDTO mapToDTO(OrderLineItem dto) {
         return OrderLineItemDTO.builder()
-                .id(dto.getId())
                 .skuCode(dto.getSkuCode())
                 .quantity(dto.getQuantity())
-                .price(dto.getPrice())
                 .build();
     }
 }

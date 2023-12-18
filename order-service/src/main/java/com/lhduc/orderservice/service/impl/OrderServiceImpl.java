@@ -9,6 +9,7 @@ import com.lhduc.orderservice.model.entity.OrderLineItem;
 import com.lhduc.orderservice.model.mapper.OrderLineItemMapper;
 import com.lhduc.orderservice.model.mapper.OrderMapper;
 import com.lhduc.orderservice.repository.OrderRepository;
+import com.lhduc.orderservice.service.InventoryService;
 import com.lhduc.orderservice.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,10 +22,10 @@ import java.util.UUID;
 import static com.lhduc.orderservice.constant.MessageConstant.ORDER_NOT_FOUND_MESSAGE;
 
 @Service
-@Transactional
 @RequiredArgsConstructor
 public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
+    private final InventoryService inventoryService;
 
     @Override
     public List<OrderDTO> getAllOrder() {
@@ -38,8 +39,11 @@ public class OrderServiceImpl implements OrderService {
         return OrderMapper.mapToDTO(order);
     }
 
+    @Transactional
     @Override
     public void createOrder(OrderCreateRequest request) {
+        inventoryService.checkItemsAvailabilityOrThrow(request.getOrderLineItems());
+
         Order order = Order.builder()
                 .orderNumber(UUID.randomUUID().toString())
                 .paymentStatus(PaymentStatus.UNPAID)

@@ -1,13 +1,10 @@
 package com.lhduc.inventoryservice.seeder;
 
-import com.lhduc.inventoryservice.model.entity.Inventory;
 import com.lhduc.inventoryservice.repository.InventoryRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
 
 @Slf4j
 @Component

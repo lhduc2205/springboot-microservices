@@ -10,4 +10,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Builder
 public class InventoryDTO {
+    private String skuCode;
+    private Integer quantity;
+    private boolean inStock;
 }

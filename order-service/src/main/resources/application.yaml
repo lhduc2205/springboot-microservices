@@ -12,6 +12,9 @@ spring:
     hibernate:
       ddl-auto: update
 
+rest-client:
+  inventory-service-url: 'http://localhost:8083/api/v1/inventories'
+
 springdoc:
   swagger-ui:
     path: '/swagger-ui.html'

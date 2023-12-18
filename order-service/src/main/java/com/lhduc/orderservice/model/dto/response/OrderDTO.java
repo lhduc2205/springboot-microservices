@@ -6,7 +6,6 @@ import lombok.Data;
 
 import java.sql.Timestamp;
 import java.util.List;
-import java.util.UUID;
 
 @Data
 @Builder

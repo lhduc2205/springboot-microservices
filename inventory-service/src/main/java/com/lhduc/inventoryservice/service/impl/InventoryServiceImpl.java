@@ -11,11 +11,18 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Transactional
 @RequiredArgsConstructor
 public class InventoryServiceImpl implements InventoryService {
     private final InventoryRepository inventoryRepository;
+
+    @Override
+    public List<InventoryDTO> getAllInventory() {
+        return InventoryMapper.mapToDTO(inventoryRepository.findAll());
+    }
 
     @Override
     public InventoryDTO getInventoryById(Long id) {
@@ -26,12 +33,14 @@ public class InventoryServiceImpl implements InventoryService {
     }
 
     @Override
-    public void createInventory(InventoryCreateRequest request) {
+    public List<InventoryDTO> getInventoriesBySkuCodes(List<String> skuCodes) {
+        List<Inventory> inventories = inventoryRepository.findBySkuCodeIn(skuCodes);
 
+        return InventoryMapper.mapToDTO(inventories);
     }
 
     @Override
-    public boolean checkStockAvailability(String skuCode) {
-        return inventoryRepository.existsBySkuCode(skuCode);
+    public void createInventory(InventoryCreateRequest request) {
+
     }
 }
