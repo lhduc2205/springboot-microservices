@@ -4,6 +4,8 @@ server:
   port: 8083
 
 spring:
+  application:
+    name: 'inventory-service'
   datasource:
     url: jdbc:postgresql://${POSTGRES_HOST:localhost}:5432/inventory_db
     username: 'postgres'
@@ -11,3 +13,8 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+
+eureka:
+  client:
+    service-url:
+      default-zone: 'http://localhost:8716/eureka'

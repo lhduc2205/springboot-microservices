@@ -1,6 +1,6 @@
 package com.lhduc.orderservice.exception.handler;
 
-import com.lhduc.inventoryservice.model.dto.response.ErrorResponse;
+import com.lhduc.orderservice.model.dto.response.ErrorResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

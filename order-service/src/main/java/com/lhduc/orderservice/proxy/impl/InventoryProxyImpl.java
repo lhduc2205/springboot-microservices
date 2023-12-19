@@ -5,6 +5,7 @@ import com.lhduc.orderservice.model.dto.response.InventoryDTO;
 import com.lhduc.orderservice.model.dto.response.SuccessResponse;
 import com.lhduc.orderservice.proxy.InventoryProxy;
 import jakarta.annotation.PostConstruct;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
@@ -18,8 +19,9 @@ import java.net.URI;
 import java.util.List;
 
 @Component
+@RequiredArgsConstructor
 public class InventoryProxyImpl implements InventoryProxy {
-    private final RestTemplate restTemplate = new RestTemplate();
+    private final RestTemplate restTemplate;
 
     @Value("${rest-client.inventory-service-url}")
     private String inventoryServiceUrl;
