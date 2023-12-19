@@ -1,5 +1,6 @@
 package com.lhduc.orderservice.proxy.impl;
 
+import com.lhduc.orderservice.exception.handler.RestTemplateResponseErrorHandler;
 import com.lhduc.orderservice.model.dto.response.InventoryDTO;
 import com.lhduc.orderservice.model.dto.response.SuccessResponse;
 import com.lhduc.orderservice.proxy.InventoryProxy;
@@ -17,7 +18,9 @@ import java.net.URI;
 import java.util.List;
 
 @Component
-public class InventoryProxyImpl extends RestTemplate implements InventoryProxy {
+public class InventoryProxyImpl implements InventoryProxy {
+    private final RestTemplate restTemplate = new RestTemplate();
+
     @Value("${rest-client.inventory-service-url}")
     private String inventoryServiceUrl;
 
@@ -26,7 +29,8 @@ public class InventoryProxyImpl extends RestTemplate implements InventoryProxy {
         DefaultUriBuilderFactory defaultUriBuilderFactory = new DefaultUriBuilderFactory(inventoryServiceUrl);
         defaultUriBuilderFactory.setEncodingMode(DefaultUriBuilderFactory.EncodingMode.VALUES_ONLY);
 
-        this.setUriTemplateHandler(defaultUriBuilderFactory);
+        restTemplate.setUriTemplateHandler(defaultUriBuilderFactory);
+        restTemplate.setErrorHandler(new RestTemplateResponseErrorHandler("Inventory Service"));
     }
 
     @Override
@@ -34,10 +38,10 @@ public class InventoryProxyImpl extends RestTemplate implements InventoryProxy {
         URI inventoryServiceUri = UriComponentsBuilder
                 .fromUriString(inventoryServiceUrl + "/sku-codes")
                 .queryParam("code", skuCodes)
-                .build(false)
+                .build()
                 .toUri();
 
-        return this.exchange(
+        return restTemplate.exchange(
                 inventoryServiceUri.toString(),
                 HttpMethod.GET,
                 null,
