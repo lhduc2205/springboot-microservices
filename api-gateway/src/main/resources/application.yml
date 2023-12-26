@@ -1,0 +1,37 @@
+server:
+  port: 8000
+
+logging:
+  level:
+    root: info
+    org.springframework.cloud.gateway:
+      '*': trace
+      route:
+        RouteDefinitionLocator: info
+
+spring:
+  application:
+    name: 'api-gateway'
+
+  cloud.gateway.routes:
+    - id: 'product-service'
+      uri: 'lb://product-service'
+      predicates:
+        - Path=/api/v1/products
+
+    - id: 'order-service'
+      uri: 'lb://order-service'
+      predicates:
+        - Path=/api/v1/orders/**
+
+    - id: 'eureka-server'
+      uri: 'http://localhost:8761'
+      predicates:
+        - Path=/eureka/web
+      filters:
+        - SetPath=/
+  security.oauth2.resourceserver.jwt:
+    issuer-uri: 'http://localhost:8181/realms/springboot-microservice-realm'
+
+eureka.client.service-url:
+  default-zone: 'http://eureka:3563949Zx@localhost:8761/eureka'

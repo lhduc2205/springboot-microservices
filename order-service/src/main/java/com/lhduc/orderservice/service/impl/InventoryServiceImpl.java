@@ -9,6 +9,7 @@ import com.lhduc.orderservice.proxy.InventoryProxy;
 import com.lhduc.orderservice.service.InventoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import java.util.HashMap;
 import java.util.List;
@@ -23,14 +24,17 @@ public class InventoryServiceImpl implements InventoryService {
     @Override
     public List<InventoryDTO> getInventoryBySkuCodes(List<String> skuCodes) {
         final var response = inventoryProxy.getInventoryBySkuCodes(skuCodes);
+        final var responseBody = response.getBody();
 
-        List<InventoryDTO> inventories = Objects.requireNonNull(response.getBody()).getData();
+        Objects.requireNonNull(responseBody);
 
-        if (inventories.isEmpty() || response.getBody() == null) {
+        List<InventoryDTO> inventories = responseBody.getData();
+
+        if (inventories.isEmpty()) {
             throw new NotFoundException("There are no item in inventory");
         }
 
-        return response.getBody().getData();
+        return inventories;
     }
 
     @Override

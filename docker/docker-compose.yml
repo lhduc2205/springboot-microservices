@@ -1,0 +1,43 @@
+version: '3'
+
+volumes:
+  postgres_data:
+
+services:
+  postgres:
+    image: 'postgres'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: 'always'
+    environment:
+      POSTGRES_DB: 'keycloak'
+      POSTGRES_USER: 'postgres'
+      POSTGRES_PASSWORD: '@3563949Zx'
+    ports:
+      - '54320:5432'
+
+  mongodb:
+    image: 'mongo'
+    restart: always
+    ports:
+      - '27017:27017'
+
+  keycloak:
+    image: 'quay.io/keycloak/keycloak:23.0.3'
+    command: start-dev
+    environment:
+      KC_DB: 'postgres'
+      KC_DB_URL: 'jdbc:postgresql://postgres/keycloak'
+      KC_HOSTNAME: 'localhost'
+      KC_DB_USERNAME: 'postgres'
+      KC_DB_PASSWORD: '@3563949Zx'
+      KEYCLOAK_ADMIN: 'admin'
+      KEYCLOAK_ADMIN_PASSWORD: 'admin'
+    ports:
+      - '8181:8080'
+    depends_on:
+      - postgres
+
+#networks:
+#  keycloak-dev-network:
+#    driver: bridge

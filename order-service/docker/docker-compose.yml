@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  product-service:
+    build: .
+    restart: always
+    ports:
+      - '8084:8084'
+
+  mongodb:
+    image: 'mongo'
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: 'lhduc'
+      MONGO_INITDB_ROOT_PASSWORD: '@3563949Zx'
+    ports:
+      - '27017:27017'
