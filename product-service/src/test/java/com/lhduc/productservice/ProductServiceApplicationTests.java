@@ -18,8 +18,6 @@ import org.testcontainers.containers.MongoDBContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
-import java.math.BigDecimal;
-
 import static com.lhduc.productservice.constant.UrlConstant.PRODUCT_ENDPOINT;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -57,9 +55,11 @@ class ProductServiceApplicationTests {
 
     private ProductCreateRequest getProductCreateRequest() {
         return ProductCreateRequest.builder()
-                .name("macbook")
-                .description("pro 16 inch")
-                .price(BigDecimal.valueOf(60_000_000))
+                .name("macbook Pro 16")
+                .code("macbookPro16")
+                .specification("RAM 16GB, SSD 512GB")
+                .price(60_000_000d)
+                .quantity(14)
                 .build();
     }
 }

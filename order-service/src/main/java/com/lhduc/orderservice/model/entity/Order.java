@@ -1,6 +1,6 @@
 package com.lhduc.orderservice.model.entity;
 
-import com.lhduc.orderservice.enums.PaymentStatus;
+import com.lhduc.orderservice.common.enums.PaymentStatus;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -22,9 +22,9 @@ import org.hibernate.annotations.UpdateTimestamp;
 import java.sql.Timestamp;
 import java.util.List;
 
-import static com.lhduc.orderservice.constant.DatabaseConstant.CREATED_AT_COLUMN_NAME;
-import static com.lhduc.orderservice.constant.DatabaseConstant.ORDER_TABLE_NAME;
-import static com.lhduc.orderservice.constant.DatabaseConstant.UPDATED_AT_COLUMN_NAME;
+import static com.lhduc.orderservice.common.constant.DatabaseConstant.CREATED_AT_COLUMN_NAME;
+import static com.lhduc.orderservice.common.constant.DatabaseConstant.ORDER_TABLE_NAME;
+import static com.lhduc.orderservice.common.constant.DatabaseConstant.UPDATED_AT_COLUMN_NAME;
 
 @Entity
 @Table(name = ORDER_TABLE_NAME)

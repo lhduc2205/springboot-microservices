@@ -12,6 +12,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @Builder
 public class OrderLineItemDTO {
-    private String skuCode;
+    private String code;
     private Integer quantity;
+    private String productId;
+    private Double price;
 }

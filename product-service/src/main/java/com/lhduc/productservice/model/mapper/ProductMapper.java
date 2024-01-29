@@ -17,8 +17,10 @@ public class ProductMapper {
         return ProductDTO.builder()
                 .id(product.getId())
                 .name(product.getName())
-                .description(product.getDescription())
+                .code(product.getCode())
+                .specification(product.getSpecification())
                 .price(product.getPrice())
+                .quantity(product.getQuantity())
                 .build();
     }
 }

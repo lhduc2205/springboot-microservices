@@ -1,0 +1,74 @@
+version: '3'
+
+services:
+  postgres:
+    image: postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: 'always'
+    environment:
+      POSTGRES_DB: 'keycloak'
+      POSTGRES_USER: 'postgres'
+      POSTGRES_PASSWORD: '@3563949Zx'
+    ports:
+      - '54320:5432'
+
+  mongodb:
+    image: mongo
+    restart: always
+    ports:
+      - '27017:27017'
+
+  keycloak:
+    image: 'quay.io/keycloak/keycloak:23.0.3'
+    command: start-dev
+    environment:
+      KC_DB: 'postgres'
+      KC_DB_URL: 'jdbc:postgresql://postgres/keycloak'
+      KC_HOSTNAME: 'localhost'
+      KC_DB_USERNAME: 'postgres'
+      KC_DB_PASSWORD: '@3563949Zx'
+      KEYCLOAK_ADMIN: 'admin'
+      KEYCLOAK_ADMIN_PASSWORD: 'admin'
+    ports:
+      - '8181:8080'
+    depends_on:
+      - postgres
+
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.2.1
+    container_name: 'zookeeper'
+    ports:
+      - "2181:2181"
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+
+  kafka:
+    image: confluentinc/cp-kafka:7.2.1
+    container_name: 'kafka'
+    depends_on:
+      - zookeeper
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: 'zookeeper:2181'
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_INTERNAL:PLAINTEXT
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092,PLAINTEXT_INTERNAL://broker:29092
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+
+  redis:
+    image: redis
+    container_name: "redis"
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+
+volumes:
+  postgres_data:
+  redis_data:

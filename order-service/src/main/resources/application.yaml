@@ -14,9 +14,12 @@ spring:
     hibernate:
       ddl-auto: update
 
+spring.kafka:
+  bootstrap-servers: 'localhost:9092'
+
 rest-client:
-  inventory-service-name: 'inventory-service'
-  inventory-service-url: 'http://${rest-client.inventory-service-name}/api/v1/inventories'
+  product-service-name: 'product-service'
+  product-service-url: 'http://${rest-client.product-service-name}/api/v1/products'
 
 springdoc:
   swagger-ui:
@@ -26,3 +29,33 @@ springdoc:
 
 eureka.client.service-url:
   default-zone: 'http://eureka:3563949Zx@localhost:8761/eureka'
+
+management:
+  health:
+    circuitbreakers:
+      enabled: true
+  endpoints:
+    jmx:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
+
+resilience4j.circuit-breaker:
+  instances:
+    inventory:
+      register-health-indicator: true
+      event-consumer-buffer-size: 10
+      sliding-window-type: count_based
+      sliding-window-size: 5
+      failure-rate-threshold: 50
+      wait-duration-in-open-state: 1s
+      permitted-number-of-calls-in-half-open-state: 3
+      automatic-transition-from-open-to-half-open-enabled: true
+
+resilience4j.retry:
+  instances:
+    inventory:
+      max-attempts: 3
+      wait-duration: 1s

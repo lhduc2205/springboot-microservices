@@ -8,5 +8,5 @@ import java.util.List;
 public interface OrderService {
     List<OrderDTO> getAllOrder();
     OrderDTO getOrderById(Long orderId);
-    void createOrder(OrderCreateRequest request);
+    void createOrder(OrderCreateRequest orderLineItems);
 }

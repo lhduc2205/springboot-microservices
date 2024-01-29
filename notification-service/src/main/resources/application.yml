@@ -1,0 +1,13 @@
+server:
+  port: 8086
+
+spring:
+  application:
+    name: 'notification-service'
+
+spring.kafka:
+  bootstrap-servers: 'localhost:9092'
+
+eureka.client.service-url:
+  default-zone: 'http://eureka:3563949Zx@localhost:8761/eureka'
+

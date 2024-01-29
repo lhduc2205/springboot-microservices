@@ -30,8 +30,12 @@ spring:
         - Path=/eureka/web
       filters:
         - SetPath=/
-  security.oauth2.resourceserver.jwt:
-    issuer-uri: 'http://localhost:8181/realms/springboot-microservice-realm'
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: 'http://localhost:8181/realms/springboot-microservice-realm'
 
 eureka.client.service-url:
   default-zone: 'http://eureka:3563949Zx@localhost:8761/eureka'

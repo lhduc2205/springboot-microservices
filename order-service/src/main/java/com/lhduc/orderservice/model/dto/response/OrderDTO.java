@@ -1,6 +1,6 @@
 package com.lhduc.orderservice.model.dto.response;
 
-import com.lhduc.orderservice.enums.PaymentStatus;
+import com.lhduc.orderservice.common.enums.PaymentStatus;
 import lombok.Builder;
 import lombok.Data;
 

@@ -13,9 +13,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.math.BigDecimal;
-
-import static com.lhduc.orderservice.constant.DatabaseConstant.ORDER_LINE_ITEM_TABLE_NAME;
+import static com.lhduc.orderservice.common.constant.DatabaseConstant.ORDER_LINE_ITEM_TABLE_NAME;
 
 @Entity
 @Table(name = ORDER_LINE_ITEM_TABLE_NAME)
@@ -24,21 +22,25 @@ import static com.lhduc.orderservice.constant.DatabaseConstant.ORDER_LINE_ITEM_T
 @NoArgsConstructor
 @Builder
 public class OrderLineItem {
-    public static final String SKU_CODE_COLUMN_NAME = "sku_code";
+    public static final String PRODUCT_CODE_COLUMN_NAME = "code";
     public static final String ORDER_ID_COLUMN_NAME = "order_id";
+    public static final String PRODUCT_ID_COLUMN_NAME = "product_id";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = SKU_CODE_COLUMN_NAME)
-    private String skuCode;
+    @Column(name = PRODUCT_CODE_COLUMN_NAME)
+    private String productCode;
 
     @Column
-    private BigDecimal price;
+    private Double price;
 
     @Column
     private Integer quantity;
+
+    @Column(name = PRODUCT_ID_COLUMN_NAME)
+    private String productId;
 
     @ManyToOne
     @JoinColumn(name = ORDER_ID_COLUMN_NAME)
